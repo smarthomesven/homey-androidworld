@@ -1,0 +1,31 @@
+{
+  "id": "nl.androidworld",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Androidworld",
+    "nl": "Androidworld"
+  },
+  "description": {
+    "en": "The latest Android news",
+    "nl": "Het laatste Android-nieuws"
+  },
+  "category": [
+    "internet"
+  ],
+  "brandColor": "#009FFF",
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Sven Serlier",
+    "email": "sven@dypodex.com"
+  }
+}
