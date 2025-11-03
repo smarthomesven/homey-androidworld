@@ -18,6 +18,11 @@
     "internet"
   ],
   "brandColor": "#009FFF",
+  "bugs": {
+    "url": "https://github.com/smarthomesven/homey-androidworld/issues"
+  },
+  "homeyCommunityTopicId": 144911,
+  "source": "https://github.com/smarthomesven/homey-androidworld",
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
