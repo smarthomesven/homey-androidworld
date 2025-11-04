@@ -3,7 +3,6 @@
 const Homey = require('homey');
 const axios = require('axios');
 const { parseStringPromise } = require('xml2js');
-const { URL } = require('url');
 
 module.exports = class AndroidworldApp extends Homey.App {
 
@@ -37,7 +36,7 @@ module.exports = class AndroidworldApp extends Homey.App {
       try {
         const posts = await this.getAndroidworldFeed();
         const latestPost = posts[0];
-        const lastPostUrl = await this.homey.settings.get('lastPostId');
+        const lastPostUrl = await this.homey.settings.get('lastPostUrl');
         const isFirstRun = await this.homey.settings.get('isFirstRun');
         if (isFirstRun) {
           this.homey.settings.set('isFirstRun', false);
