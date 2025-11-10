@@ -1,1 +1,1 @@
-Use articles Androidworld as triggers in your Flows.
+Use Androidworld articles as triggers in your Flows.
