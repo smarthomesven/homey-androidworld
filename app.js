@@ -31,20 +31,21 @@ module.exports = class AndroidworldApp extends Homey.App {
 
   async onInit() {
     this.log('Androidworld has been initialized');
-    this.homey.settings.set('isFirstRun', true);
+    this._isFirstRun = true;
+    this._lastPostUrl = "";
     this.homey.setInterval(async () => {
       try {
         const posts = await this.getAndroidworldFeed();
         const latestPost = posts[0];
-        const lastPostUrl = await this.homey.settings.get('lastPostUrl');
-        const isFirstRun = await this.homey.settings.get('isFirstRun');
+        const lastPostUrl = await this._lastPostUrl;
+        const isFirstRun = await this._isFirstRun;
         if (isFirstRun) {
-          this.homey.settings.set('isFirstRun', false);
-          this.homey.settings.set('lastPostUrl', latestPost.url);
+          this._isFirstRun = false;
+          this._lastPostUrl = latestPost.url;
           return;
         }
         if (latestPost.url !== lastPostUrl) {
-          this.homey.settings.set('lastPostUrl', latestPost.url);
+          this._lastPostUrl = latestPost.url;
           this.homey.flow.getTriggerCard('new_post').trigger({
             title: latestPost.title,
             url: latestPost.url,
@@ -56,24 +57,6 @@ module.exports = class AndroidworldApp extends Homey.App {
         this.error('Error fetching Androidworld feed:', error);
       }
     } , 15 * 60 * 1000);
-    try {
-      const { randomUUID } = require('crypto');
-      let id = this.homey.settings.get('id');
-      if (!id) {
-        id = randomUUID();
-        this.homey.settings.set('id', id);
-      }
-      await axios.post('https://homey-apps-telemetry.vercel.app/api/installations', {
-        id: id,
-        appId: "nl.androidworld",
-        homeyPlatform: this.homey.platformVersion ? this.homey.platformVersion : 1,
-        appVersion: this.manifest.version,
-      }).catch(error => {
-        this.error('Error sending telemetry data:', error.message);
-      });
-    } catch (error) {
-      this.error('Error in onInit:', error.message);
-    }
   }
 
 };
